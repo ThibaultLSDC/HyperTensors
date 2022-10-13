@@ -15,9 +15,10 @@ class HyperTensor:
         self.value = tensor
         self.c = curvature
 
-    def from_real(self, tensor: torch.Tensor, curvature: float=1.):
-        self.value = self.exponential_map(tensor, curvature)
-        self.c = curvature
+    @classmethod
+    def from_real(cls, tensor: torch.Tensor, curvature: float=1.):
+        value = cls.exponential_map(tensor, curvature)
+        return cls(value, curvature)
 
     @staticmethod
     def exponential_map(t, c):
